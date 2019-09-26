@@ -7,7 +7,7 @@ lanbitou(LBT) for better yourself
 
 
 
-Thinks
+Thanks
 ---------------
 * VUE
 * https://github.com/vuematerial/vue-material
