@@ -80,7 +80,9 @@
                         <li>
                           <a href="#/management" class="dropdown-item">管理</a>
                         </li>
-
+                        <li>
+                          <a href="#/image/management" class="dropdown-item">附件</a>
+                        </li>
                         <li>
                           <a @click="handleLogout" class="dropdown-item">登出</a>
                         </li>

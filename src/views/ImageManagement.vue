@@ -9,7 +9,7 @@
             <md-table v-model="searched" md-sort="createTime" md-sort-order="desc" @md-selected="onSelect" md-card md-fixed-header>
               <md-table-toolbar>
                 <div class="md-toolbar-section-start">
-                  <h1 class="md-title" style="color: #000000 !important;">史记</h1>
+                  <h1 class="md-title" style="color: #000000 !important;">图床</h1>
                 </div>
 
                 <md-field md-clearable class="md-toolbar-section-end">
@@ -24,23 +24,15 @@
               </md-table-empty-state>
 
               <md-table-row slot="md-table-row" slot-scope="{ item }">
-                <md-table-cell md-label="标题" md-sort-by="title">{{ item.title }}</md-table-cell>
-                <md-table-cell md-label="状态" md-sort-by="status">{{ item.statusProperty.text }}</md-table-cell>
-                <md-table-cell md-label="浏览量" md-sort-by="visits">{{ item.visits }}</md-table-cell>
-                <md-table-cell md-label="点赞量" md-sort-by="title">{{ item.likes }}</md-table-cell>
-                <md-table-cell md-label="创建时间" md-sort-by="createTime">{{ item.createTime }}</md-table-cell>
+                <md-table-cell md-label="标题" md-sort-by="title">
+                  <a :href="item.path" target="_blank">{{ item.name }}</a>
+                </md-table-cell>
+                <md-table-cell md-label="大小（byte）" md-sort-by="visits">{{ item.size }}</md-table-cell>
+                <md-table-cell md-label="时间" md-sort-by="title">{{ item.createTime }}</md-table-cell>
                 <md-table-cell md-label="操作">
-                  <md-button class="md-icon-button md-primary" @click="editPost(item.id)">
-                    <md-icon>update</md-icon>
-                    <md-tooltip md-direction="top">修改</md-tooltip>
-                  </md-button>
-                  <md-button class="md-icon-button md-primary" @click="deletePost(item.id)">
+                  <md-button class="md-icon-button md-primary" @click="deleteAttachment(item.id)">
                     <md-icon>delete</md-icon>
                     <md-tooltip md-direction="top">删除</md-tooltip>
-                  </md-button>
-                  <md-button class="md-icon-button md-primary" @click="updateStatus(item.id,item.status)">
-                    <md-icon>menu</md-icon>
-                    <md-tooltip md-direction="top">{{item.status === 'PUBLISHED'?'下架':'发布'}}</md-tooltip>
                   </md-button>
                 </md-table-cell>
               </md-table-row>
@@ -57,7 +49,7 @@
 
 <script>
 
-import postApi from '@/api/post'
+import attachmentApi from '@/api/attachment'
 import {mapActions} from 'vuex'
 
 export default {
@@ -80,8 +72,7 @@ export default {
         categoryId: null,
         status: null
       },
-      postStatus: postApi.postStatus,
-      posts: [],
+      attachments: null,
       searched: [],
       search: null,
       selected: null
@@ -89,42 +80,22 @@ export default {
   },
   methods: {
     ...mapActions(['copyUser']),
-    loadPosts () {
+    loadAttachment () {
       this.queryParam.page = this.pagination.current - 1
       this.queryParam.size = this.pagination.pageSize
       this.queryParam.sort = this.pagination.sort
-      postApi.my(this.queryParam).then(response => {
-        this.posts = response.data.content
+      attachmentApi.query(this.queryParam).then(response => {
+        this.attachments = response.data.content
         this.pagination.total = response.data.totalElements
-        this.searched = this.posts
-        this.searched.map(post => {
-          post.statusProperty = this.postStatus[post.status]
-          return post
-        })
+        this.searched = this.attachments
       })
     },
     searchOnTable () {
-      this.searched = this.posts.filter(item => item.title.includes(this.search))
+      this.searched = this.attachments.filter(item => item.name.includes(this.search))
     },
-    deletePost (id) {
-      postApi.delete(id).then(resp => {
+    deleteAttachment (id) {
+      attachmentApi.delete(id).then(resp => {
         this.searched = this.searched.filter(p => p.id !== id)
-      })
-    },
-    editPost (url) {
-      if (!url) {
-        url = 'new'
-      }
-      this.$router.push({name: 'npost', params: {url: url}})
-    },
-    updateStatus (id, status) {
-      if (status === 'PUBLISHED') {
-        status = 'DRAFT'
-      } else {
-        status = 'PUBLISHED'
-      }
-      postApi.updateStatus(id, status).then(resp => {
-        this.loadPosts()
       })
     },
     onSelect (item) {
@@ -133,7 +104,7 @@ export default {
   },
   created () {
     this.copyUser()
-    this.loadPosts()
+    this.loadAttachment()
   },
   mounted () {
   },

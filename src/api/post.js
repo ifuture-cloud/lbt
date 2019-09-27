@@ -53,6 +53,13 @@ postApi.delete = postId => {
   })
 }
 
+postApi.get = (postId) => {
+  return service({
+    url: `${baseUrl}/i/${postId}`,
+    method: 'get'
+  })
+}
+
 postApi.my = (params) => {
   return service({
     url: `${baseMyUrl}`,

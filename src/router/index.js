@@ -8,6 +8,7 @@ import EditProfile from '@/views/EditProfile.vue'
 import Post from '@/views/Post'
 import NewPost from '@/views/NewPost'
 import Management from '@/views/Management'
+import ImageManagement from '@/views/ImageManagement'
 import MainNavbar from '@/layout/MainNavbar.vue'
 import MainFooter from '@/layout/MainFooter.vue'
 
@@ -38,6 +39,15 @@ export default new Router({
       components: { default: Signup, header: MainNavbar, footer: MainFooter },
       props: {
         header: { colorOnScroll: 400 }
+      }
+    },
+    {
+      path: '/image/management',
+      name: 'imageManagement',
+      components: { default: ImageManagement, header: MainNavbar, footer: MainFooter },
+      props: {
+        header: { colorOnScroll: 100 },
+        footer: { backgroundColor: 'black' }
       }
     },
     {

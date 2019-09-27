@@ -95,7 +95,7 @@ export default {
     const url = to.params.url
     next(vm => {
       if (url && url !== 'new') {
-        postApi.url(url).then(response => {
+        postApi.get(url).then(response => {
           vm.post = response.data
         })
       }
