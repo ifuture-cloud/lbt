@@ -18,17 +18,18 @@ lanbitou(LBT) for better yourself
 > 也因为他的优点而不得不丢失一下很重要的特性：  
 > hexo 环境搭建大部分是在本地运行，这意味着脱离了搭建环境的电脑，发布文章是件不可能的事情  
 > hexo 没有原生的搜索功能，只能借助第三方去搜索这在效率上会大打折扣  
-> 还有评论功能、计数功能等只能借助于第三方服务去提供
-> 你女朋友想用，使用难度大  
+> 还有评论功能、计数功能等只能借助于第三方服务去提供  
+> 你亲朋好久甚至是女朋友想用，使用难度大，如果你可以给他们搭建一个属于自己的动态博客，那么^_^  
 > 而使用lbt这些问题都将迎刃而解
 
 
 ### LBT-server
 
-> 整理中，即将开源
+> https://github.com/ifuture-cloud/lbt-java
 
 
 鸣谢
 ---------------
 * VUE
 * https://github.com/vuematerial/vue-material
+* All open source project

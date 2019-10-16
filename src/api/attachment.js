@@ -69,22 +69,6 @@ attachmentApi.type = {
   LOCAL: {
     type: 'local',
     text: '本地'
-  },
-  SMMS: {
-    type: 'smms',
-    text: 'SM.MS'
-  },
-  UPYUN: {
-    type: 'upyun',
-    text: '又拍云'
-  },
-  QNYUN: {
-    type: 'qnyun',
-    text: '七牛云'
-  },
-  ALIYUN: {
-    type: 'aliyun',
-    text: '阿里云'
   }
 }
 
