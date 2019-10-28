@@ -68,6 +68,24 @@ postApi.my = (params) => {
   })
 }
 
+/**
+ * 添加评论
+ * author评论者昵称不能为空
+ * email邮箱不能为空
+ * authorUrl评论者博客链接
+ * content评论内容
+ * postId文章ID
+ * parentId 上级评论ID
+ */
+// TODO send to zh
+postApi.comments = (comment) => {
+  return service({
+    url: `${baseUrl}/comments`,
+    method: 'post',
+    data: comment
+  })
+}
+
 postApi.postStatus = {
   PUBLISHED: {
     color: 'green',
